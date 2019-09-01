@@ -5,7 +5,6 @@ from .forms import ArticlePostForm, CommentPostForm
 
 
 def index(request):
-    print("home!!!")
     all_articles = Article.objects.all()
 
     if len(all_articles) == 0:
@@ -37,11 +36,10 @@ def add(request):
 def detail(request, article_id):
     def _add_comment():
         form = CommentPostForm(request.POST)
-        print("comment form :", form)
         if form.is_valid():
-            print("in valid")
-            form.save()
-            print("saved")
+            comment = form.save(commit=False)
+            comment.article = Article.objects.get(pk=article_id)
+            comment.save()
 
     if request.method == 'GET':
         article = Article.objects.get(pk=article_id)
@@ -72,24 +70,18 @@ def detail(request, article_id):
 
 0
 def edit(request, article_id):
-    print("--------132413451345")
     article = Article.objects.get(pk=article_id)
     ctx = {
         'article': article
     }
-    print("article:", article)
 
     if request.method == 'POST':
-        print(1)
         form = ArticlePostForm(request.POST, instance=article)
         if form.is_valid():
             article = form.save()
-            print("article updated", article)
             return redirect('detail', article_id=article_id)
     else:
-        print(2)
         form = ArticlePostForm(instance=article)
-        print("formmmmmmm:", form)
         ctx['form'] = form
 
     return render(request, 'edit.html', ctx)

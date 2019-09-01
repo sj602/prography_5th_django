@@ -40,13 +40,9 @@
     <form method="POST" class="form">
         {% csrf_token %}
         {% bootstrap_form form layout='horizontal' %}
-<!--        <div class="form-group">-->
-<!--            <input class="form-control" id="comment_author" value="{{ article.comment }}" placeholder="이름">-->
-<!--            <textarea class="form-control" id="comment_content" rows="5" placeholder="댓글"></textarea>-->
         {% buttons %}
             <button type="submit" class="btn btn-primary pull-right">댓글 등록</button>
         {% endbuttons %}
-<!--        </div>-->
     </form>
 </ul>
 {% endblock content %}
