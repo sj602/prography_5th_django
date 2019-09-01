@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<form method="POST" class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    {% endbuttons %}
+</form>
+{% endblock content %}
